@@ -1,25 +1,24 @@
 import React from "react";
 import "./styles.css";
+import ErrorBody from "./ErrorBody";
+import RepoTable from "./RepoTable";
 
-export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      counter: 1
-    };
-  }
-
-  startChange = () => {
-    this.setState({ counter: this.state.counter + 1 });
-  };
-
-  render() {
-    return (
-      <div>
-        <span>{this.state.counter}</span>
-        <button onClick={this.startChange}>Start</button>
-        <button>Stop</button>
+const App = (props) => {
+  return (
+    <React.Fragment>
+      <div className="mainBody">
+        <div className="element-position">
+          <span>Enter GitHub Username:</span>
+          <input type="text" className="user-input" />
+        </div>
+        <div className="element-position button">
+          <input type="submit" onClick={() => {}} />
+        </div>
+        <ErrorBody userName="Upasana" />
       </div>
-    );
-  }
-}
+      <RepoTable data="" />
+    </React.Fragment>
+  );
+};
+
+export default App;
