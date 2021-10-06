@@ -5,9 +5,10 @@ import RepoTable from "./RepoTable";
 
 const App = (props) => {
   const [user, setUser] = useState(null);
+  const [userFinal, setUserFinal] = useState(null);
   const [tableData, setTableData] = useState([]);
   const [apiSuccess, setApiSuccess] = useState(false);
-  // const [error, setError] = useState(false);
+  const [error, setError] = useState(false);
 
   const url = `https://api.github.com/users/${user}/repos`;
   const fetchData = async () => {
@@ -17,8 +18,10 @@ const App = (props) => {
       setTableData(data);
       if (res.ok) {
         setApiSuccess(true);
+        setError(false);
       } else {
         setApiSuccess(false);
+        setError(true);
       }
       console.log("Data** ", res);
     } catch (error) {
@@ -46,13 +49,18 @@ const App = (props) => {
             onClick={(event) => {
               event.preventDefault();
               fetchData();
+              setUserFinal(user);
             }}
           />
         </div>
-        {!apiSuccess && <ErrorBody userName={user} />}
+        {error && <ErrorBody userName={userFinal} />}
       </div>
-      {apiSuccess && tableData && tableData.length > 0 && (
+      {apiSuccess && tableData && tableData.length > 0 ? (
         <RepoTable data={tableData} />
+      ) : apiSuccess && tableData && tableData.length === 0 ? (
+        "There is no Repo created for this user."
+      ) : (
+        ""
       )}
     </React.Fragment>
   );
