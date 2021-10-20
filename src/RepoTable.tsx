@@ -1,4 +1,10 @@
-import { useTable } from "react-table";
+import {
+  useTable,
+  useSortBy,
+  useFilters,
+  useGlobalFilter,
+  useAsyncDebounce
+} from "react-table";
 import React from "react";
 import styled from "styled-components";
 
@@ -36,34 +42,107 @@ const Repotable = (props: RepoTableProps) => {
     max-height: calc(100vh - 30% - 80px);
     overflow: auto;
   `;
-  const columns: any = React.useMemo(
+  const columns = React.useMemo(
     () => [
       {
-        Header: "Repo Name",
-        accessor: "name"
+        Header: "Owner",
+        accessor: "owner.login",
+        Cell: (tableprops) => {
+          console.log("tableprops** ", tableprops);
+          console.log("tableprops.data** ", tableprops.data);
+          console.log("tableprops.data.owner** ", tableprops.data[0].owner);
+          return (
+            <div style={{ display: "flex" }}>
+              {tableprops && tableprops.data && tableprops.data[0].owner && (
+                <>
+                  <img
+                    src={tableprops.data[0].owner.avatar_url}
+                    alt="avatar"
+                    width="20px"
+                    height="20px"
+                    style={{ marginRight: "5px" }}
+                  />
+                  <span>{tableprops.data[0].owner.login}</span>
+                </>
+              )}
+            </div>
+          );
+        }
       },
       {
-        Header: "Visibility",
-        accessor: "visibility"
+        Header: "Name",
+        accessor: "name"
       },
       {
         Header: "Description",
         accessor: "description"
+      },
+      {
+        Header: "Stars",
+        accessor: "stargazers_count"
+      },
+      {
+        Header: "Open Issue Count",
+        accessor: "open_issues_count"
+      },
+      {
+        Header: "Watchers",
+        accessor: "watchers_count"
       }
     ],
     []
   );
   let data: any = props.data;
+
+  function GlobalFilter({
+    preGlobalFilteredRows,
+    globalFilter,
+    setGlobalFilter
+  }) {
+    // const count = preGlobalFilteredRows.length;
+    const [value, setValue] = React.useState(globalFilter);
+    const onChange = useAsyncDebounce((value) => {
+      setGlobalFilter(value || undefined);
+    }, 200);
+
+    return (
+      <span>
+        Search:{" "}
+        <input
+          value={value || ""}
+          onChange={(e) => {
+            setValue(e.target.value);
+            onChange(e.target.value);
+          }}
+          // placeholder={`${count} records...`}
+          style={{
+            fontSize: "1.1rem",
+            border: "0"
+          }}
+        />
+      </span>
+    );
+  }
+
   const {
     getTableProps,
     getTableBodyProps,
     headerGroups,
     rows,
-    prepareRow
-  }: any = useTable({
-    columns,
-    data
-  });
+    prepareRow,
+    state,
+    visibleColumns,
+    preGlobalFilteredRows,
+    setGlobalFilter
+  }: any = useTable(
+    {
+      columns,
+      data
+    },
+    useFilters,
+    useGlobalFilter,
+    useSortBy
+  );
 
   // Render the UI for your table
   return (
@@ -73,12 +152,39 @@ const Repotable = (props: RepoTableProps) => {
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                <th role="row" {...column.getHeaderProps()} tabIndex={0}>
+                <th
+                  role="row"
+                  {...column.getHeaderProps(column.getSortByToggleProps())}
+                  tabIndex={0}
+                >
                   {column.render("Header")}
+                  {/* Add a sort direction indicator */}
+
+                  <span>
+                    {column.isSorted
+                      ? column.isSortedDesc
+                        ? " 🔽"
+                        : " 🔼"
+                      : ""}
+                  </span>
                 </th>
               ))}
             </tr>
           ))}
+          <tr>
+            <th
+              colSpan={visibleColumns.length}
+              style={{
+                textAlign: "left"
+              }}
+            >
+              <GlobalFilter
+                preGlobalFilteredRows={preGlobalFilteredRows}
+                globalFilter={state.globalFilter}
+                setGlobalFilter={setGlobalFilter}
+              />
+            </th>
+          </tr>
         </thead>
         <tbody {...getTableBodyProps()}>
           {rows.map((row, i) => {

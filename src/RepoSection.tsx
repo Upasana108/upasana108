@@ -52,6 +52,7 @@ const RepoSection = (props: RepoProps) => {
         <div className="submit-section">
           <input
             type="submit"
+            disabled={user === null ? true : false}
             className="submit-button"
             onClick={(event) => {
               event.preventDefault();
