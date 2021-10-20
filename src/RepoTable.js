@@ -4,10 +4,9 @@ import styled from "styled-components";
 
 const Repotable = (props) => {
   const Styles = styled.div`
-    padding: 1rem;
-
     table {
       border-spacing: 0;
+      width: 100%;
       border: 1px solid black;
 
       tr {
@@ -62,7 +61,7 @@ const Repotable = (props) => {
 
   // Render the UI for your table
   return (
-    <Styles>
+    <Styles tableHeight={props.tableHeight}>
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
