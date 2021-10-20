@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import "./styles.css";
 import RepoSection from "./RepoSection";
 
-const App = (props) => {
+interface AppProps {}
+const App = (props: AppProps) => {
   return (
     <div className="mainBody">
       <RepoSection />
