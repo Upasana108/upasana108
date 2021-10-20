@@ -2,7 +2,9 @@ import { useTable } from "react-table";
 import React from "react";
 import styled from "styled-components";
 
-const Repotable = (props) => {
+interface RepoTableProps {}
+
+const Repotable = (props: RepoTableProps) => {
   const Styles = styled.div`
     table {
       border-spacing: 0;
@@ -63,7 +65,7 @@ const Repotable = (props) => {
 
   // Render the UI for your table
   return (
-    <Styles tableHeight={props.tableHeight}>
+    <Styles>
       <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
