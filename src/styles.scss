@@ -37,6 +37,10 @@ body {
   border-radius: 2px;
 }
 
+.user-input:focus,.submit-button:focus, th:focus, td:focus {
+  box-shadow: 0px 0px 6px 0px #1520A6 !important;
+}
+
 .element-position {
   top: 50%;
   transform: translate(-50%, -50%);

@@ -68,12 +68,14 @@ const Repotable = (props: RepoTableProps) => {
   // Render the UI for your table
   return (
     <Styles>
-      <table {...getTableProps()}>
+      <table {...getTableProps()} role="grid">
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>{column.render("Header")}</th>
+                <th role="row" {...column.getHeaderProps()} tabIndex={0}>
+                  {column.render("Header")}
+                </th>
               ))}
             </tr>
           ))}
@@ -85,7 +87,9 @@ const Repotable = (props: RepoTableProps) => {
               <tr {...row.getRowProps()}>
                 {row.cells.map((cell) => {
                   return (
-                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                    <td tabIndex={0} role="row" {...cell.getCellProps()}>
+                      {cell.render("Cell")}
+                    </td>
                   );
                 })}
               </tr>

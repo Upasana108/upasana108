@@ -44,6 +44,7 @@ const RepoSection = (props: RepoProps) => {
       >
         <input
           type="text"
+          // tabIndex={0}
           className="user-input"
           placeholder="GitHub Username"
           onChange={(event) => {
