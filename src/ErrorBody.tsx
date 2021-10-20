@@ -1,4 +1,6 @@
-interface ErrorProps {}
+interface ErrorProps {
+  userName: Text;
+}
 
 let ErrorBody = (props: ErrorProps) => {
   console.log("Props", props);
