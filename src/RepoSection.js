@@ -33,22 +33,6 @@ const RepoSection = (props) => {
   };
 
   let showtable = apiSuccess && tableData && tableData.length > 0;
-  let tableHeight = null;
-  if (
-    showtable &&
-    document.getElementById("input-section") &&
-    document.getElementById("repo-section")
-  ) {
-    tableHeight =
-      document.getElementById("repo-section").scrollHeight -
-      document.getElementById("input-section").scrollHeight;
-    console.log(
-      "Heght ",
-      document.getElementById("input-section").scrollHeight,
-      document.getElementById("repo-section").scrollHeight,
-      tableHeight
-    );
-  }
 
   return (
     <div className="repo-section" id="repo-section">
@@ -78,10 +62,7 @@ const RepoSection = (props) => {
       </div>
       {error && <ErrorBody userName={userFinal} />}
       {showtable ? (
-        <RepoTable
-          data={tableData}
-          tableHeight={tableHeight ? tableHeight : "0px"}
-        />
+        <RepoTable data={tableData} />
       ) : apiSuccess && tableData && tableData.length === 0 ? (
         "There is no Repo created for this user."
       ) : (

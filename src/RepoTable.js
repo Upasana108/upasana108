@@ -29,6 +29,8 @@ const Repotable = (props) => {
         }
       }
     }
+    max-height: calc(100vh - 30% - 80px);
+    overflow: auto;
   `;
   const columns = React.useMemo(
     () => [
