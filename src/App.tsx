@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./styles.scss";
+import "./styles.css";
 import RepoSection from "./RepoSection";
 
 interface AppProps {}

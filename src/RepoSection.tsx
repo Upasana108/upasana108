@@ -4,14 +4,14 @@ import RepoTable from "./RepoTable";
 
 interface RepoProps {}
 
-const RepoSection = (props: RepoProps) => {
+const RepoSection: any = (props: RepoProps) => {
   let {} = props;
 
-  const [user, setUser] = useState(null);
-  const [userFinal, setUserFinal] = useState(null);
-  const [tableData, setTableData] = useState([]);
-  const [apiSuccess, setApiSuccess] = useState(false);
-  const [error, setError] = useState(false);
+  const [user, setUser]: any = useState(null);
+  const [userFinal, setUserFinal]: any = useState(null);
+  const [tableData, setTableData]: any = useState([]);
+  const [apiSuccess, setApiSuccess]: any = useState(false);
+  const [error, setError]: any = useState(false);
 
   const url = `https://api.github.com/users/${user}/repos`;
 

@@ -12,7 +12,7 @@ interface RepoTableProps {
   data: Array<Object>;
 }
 
-const Repotable = (props: RepoTableProps) => {
+const Repotable: any = (props: RepoTableProps) => {
   const Styles: any = styled.div`
     table {
       border-spacing: 0;
@@ -42,15 +42,12 @@ const Repotable = (props: RepoTableProps) => {
     max-height: calc(100vh - 30% - 80px);
     overflow: auto;
   `;
-  const columns = React.useMemo(
+  const columns: any = React.useMemo(
     () => [
       {
         Header: "Owner",
         accessor: "owner.login",
-        Cell: (tableprops) => {
-          console.log("tableprops** ", tableprops);
-          console.log("tableprops.data** ", tableprops.data);
-          console.log("tableprops.data.owner** ", tableprops.data[0].owner);
+        Cell: (tableprops: any) => {
           return (
             <div style={{ display: "flex" }}>
               {tableprops && tableprops.data && tableprops.data[0].owner && (
@@ -94,14 +91,10 @@ const Repotable = (props: RepoTableProps) => {
   );
   let data: any = props.data;
 
-  function GlobalFilter({
-    preGlobalFilteredRows,
-    globalFilter,
-    setGlobalFilter
-  }) {
+  function GlobalFilter({ globalFilter, setGlobalFilter }: any) {
     // const count = preGlobalFilteredRows.length;
-    const [value, setValue] = React.useState(globalFilter);
-    const onChange = useAsyncDebounce((value) => {
+    const [value, setValue]: any = React.useState(globalFilter);
+    const onChange: any = useAsyncDebounce((value: any) => {
       setGlobalFilter(value || undefined);
     }, 200);
 
@@ -132,7 +125,6 @@ const Repotable = (props: RepoTableProps) => {
     prepareRow,
     state,
     visibleColumns,
-    preGlobalFilteredRows,
     setGlobalFilter
   }: any = useTable(
     {
@@ -149,9 +141,9 @@ const Repotable = (props: RepoTableProps) => {
     <Styles>
       <table {...getTableProps()} role="grid">
         <thead>
-          {headerGroups.map((headerGroup) => (
+          {headerGroups.map((headerGroup: any) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
+              {headerGroup.headers.map((column: any) => (
                 <th
                   role="row"
                   {...column.getHeaderProps(column.getSortByToggleProps())}
@@ -179,7 +171,6 @@ const Repotable = (props: RepoTableProps) => {
               }}
             >
               <GlobalFilter
-                preGlobalFilteredRows={preGlobalFilteredRows}
                 globalFilter={state.globalFilter}
                 setGlobalFilter={setGlobalFilter}
               />
@@ -187,11 +178,11 @@ const Repotable = (props: RepoTableProps) => {
           </tr>
         </thead>
         <tbody {...getTableBodyProps()}>
-          {rows.map((row, i) => {
+          {rows.map((row: any, i: any) => {
             prepareRow(row);
             return (
               <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
+                {row.cells.map((cell: any) => {
                   return (
                     <td tabIndex={0} role="row" {...cell.getCellProps()}>
                       {cell.render("Cell")}
