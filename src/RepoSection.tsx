@@ -15,10 +15,10 @@ const RepoSection = (props: RepoProps) => {
 
   const url = `https://api.github.com/users/${user}/repos`;
 
-  const fetchData = async () => {
+  const fetchData: any = async () => {
     try {
-      const res = await fetch(url);
-      const data = await res.json();
+      const res: any = await fetch(url);
+      const data: any = await res.json();
       setTableData(data);
       if (res.ok) {
         setApiSuccess(true);
@@ -34,7 +34,7 @@ const RepoSection = (props: RepoProps) => {
     }
   };
 
-  let showtable = apiSuccess && tableData && tableData.length > 0;
+  let showtable: any = apiSuccess && tableData && tableData.length > 0;
 
   return (
     <div className="repo-section" id="repo-section">

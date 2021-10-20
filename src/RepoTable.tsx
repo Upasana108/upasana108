@@ -2,10 +2,12 @@ import { useTable } from "react-table";
 import React from "react";
 import styled from "styled-components";
 
-interface RepoTableProps {}
+interface RepoTableProps {
+  data: Array<Object>;
+}
 
 const Repotable = (props: RepoTableProps) => {
-  const Styles = styled.div`
+  const Styles: any = styled.div`
     table {
       border-spacing: 0;
       width: 100%;
@@ -34,7 +36,7 @@ const Repotable = (props: RepoTableProps) => {
     max-height: calc(100vh - 30% - 80px);
     overflow: auto;
   `;
-  const columns = React.useMemo(
+  const columns: any = React.useMemo(
     () => [
       {
         Header: "Repo Name",
@@ -51,14 +53,14 @@ const Repotable = (props: RepoTableProps) => {
     ],
     []
   );
-  let data = props.data;
+  let data: any = props.data;
   const {
     getTableProps,
     getTableBodyProps,
     headerGroups,
     rows,
     prepareRow
-  } = useTable({
+  }: any = useTable({
     columns,
     data
   });
