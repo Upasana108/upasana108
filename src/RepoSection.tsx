@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import ErrorBody from "./ErrorBody";
 import RepoTable from "./RepoTable";
 
-const RepoSection = (props) => {
+interface RepoProps {}
+
+const RepoSection = (props: RepoProps) => {
   let {} = props;
 
   const [user, setUser] = useState(null);
