@@ -27,10 +27,8 @@ const RepoSection = (props: RepoProps) => {
         setApiSuccess(false);
         setError(true);
       }
-      console.log("Data** ", res);
     } catch (error) {
       // setError(true);
-      console.log("Error** ", error);
     }
   };
 
